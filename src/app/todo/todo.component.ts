@@ -8,25 +8,34 @@ import { Model } from './model';
 })
 export class TodoComponent {
 
-   message = "";
+   displayAll: boolean = false;
 
   constructor() { }
 
  model = new Model();
 
-//  addItem(txtItem:any){
-//      console.log(txtItem.value)
-//  }
-addItem(value: string){
-      this.message = value;
+   addItem(value: string){
+     if(value === "")
+      alert("tom text kan inte läggas på listan")
+      else{
+        this.model.items.push({description: value,action: false});
+      }
    }
 
   getName(){
     return this.model.name;
   }
 
+
   getItems(){
-   return this.model.items;
+    if(this.displayAll){
+      return this.model.items;
+    }
+   return this.model.items.filter(item => item.action === false);
  }
+
+displayCount(){
+  return this.model.items.filter(i => i.action).length;
+}
 
 }
